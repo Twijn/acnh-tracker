@@ -258,7 +258,7 @@
 </script>
 
 <div class="filter-sort">
-    <label class={sizes.length > 2 ? "span-4" : "span-6"}>
+    <label class={sizes.length > 2 && whereHows.length > 1 ? "span-4" : "span-6"}>
         Search by Name
         <input type="search" name="search" placeholder="Filter by name..." bind:value={filterName} />
     </label>
@@ -271,6 +271,7 @@
             {/each}
         </select>
     </label>
+    {#if whereHows.length > 1}
     <label class="span-2">
         Search by Location
         <select name="whereHow" bind:value={whereHow}>
@@ -280,6 +281,7 @@
             {/each}
         </select>
     </label>
+    {/if}
     {#if sizes.length > 2}
     <label class="span-2">
         Search by Shadow Size
