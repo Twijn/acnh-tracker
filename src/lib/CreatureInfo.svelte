@@ -250,4 +250,16 @@
             grid-template-columns: repeat(2, 1fr);
         }
     }
+
+    @media only screen and (max-width: 525px) {
+        .pill-box-3 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media only screen and (max-width: 370px) {
+        .pill-box {
+            display: block;
+        }
+    }
 </style>
