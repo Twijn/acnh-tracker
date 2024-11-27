@@ -335,6 +335,7 @@
     .container {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
+        margin: 0 -.6em;
     }
 
     @media only screen and (min-width: 600px) {

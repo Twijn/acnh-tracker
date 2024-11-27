@@ -268,7 +268,7 @@
     }
 
     .wrapper {
-        width: calc(100% - 3em);
+        width: calc(100% - 2em);
         margin: 1em auto;
     }
 
