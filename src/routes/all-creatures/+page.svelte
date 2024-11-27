@@ -8,6 +8,7 @@
 
 <svelte:head>
     <title>All Creatures | Animal Crossing: New Horizons Tracker</title>
+    <meta name="description" content="View all Animal Crossing: New Horizons creatures, track what you've caught, and summarize your earnings!" />
 </svelte:head>
 
 <h1>

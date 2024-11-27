@@ -9,6 +9,7 @@
 
 <svelte:head>
     <title>Bugs | Animal Crossing: New Horizons Tracker</title>
+    <meta name="description" content="View Animal Crossing: New Horizons bugs, track what you've caught, and summarize your earnings!" />
 </svelte:head>
 
 <h1>

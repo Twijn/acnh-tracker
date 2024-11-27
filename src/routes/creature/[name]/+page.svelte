@@ -21,7 +21,8 @@
 </script>
 
 <svelte:head>
-    <title>{toTitleCase(creature.translations[lang].toString())} | Fish | Animal Crossing: New Horizons Tracker</title>
+    <title>{toTitleCase(creature.translations[lang].toString())} | Creatures | Animal Crossing: New Horizons Tracker</title>
+    <meta name="description" content="View information for {toTitleCase(creature.translations[lang].toString())} creatures in Animal Crossing: New Horizons!" />
 </svelte:head>
 
 {#if creatureList.length > 1}

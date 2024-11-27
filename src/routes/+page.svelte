@@ -64,6 +64,7 @@
 
 <svelte:head>
     <title>Animal Crossing: New Horizons Tracker</title>
+    <meta name="description" content="Animal Crossing: New Horizons Bug, Fish & Sea Creature Tracker. See what's active, track what you've caught, and analyze your earnings & storage!" />
 </svelte:head>
 
 <h1>

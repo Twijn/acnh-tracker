@@ -9,6 +9,7 @@
 
 <svelte:head>
     <title>Fish | Animal Crossing: New Horizons Tracker</title>
+    <meta name="description" content="View Animal Crossing: New Horizons fish, track what you've caught, and summarize your earnings!" />
 </svelte:head>
 
 <h1>
