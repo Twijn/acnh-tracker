@@ -13,6 +13,7 @@
     const { children, data } = $props();
 
     let settingsVisible = $state(false);
+    let mobileNavOpen = $state(false);
 
     const hideSettings = () => {
         settingsVisible = false;
@@ -51,33 +52,36 @@
             </span>
         </a>
         <nav id="main-nav">
-            <ul>
+            <ul class={mobileNavOpen ? "open" : undefined}>
                 <li>
-                    <a href="/" aria-current={$page.url.pathname === "/" ? "page" : undefined}>
+                    <a href="/" onclick={() => mobileNavOpen = false} aria-current={$page.url.pathname === "/" ? "page" : undefined}>
                         <i class="fa-duotone fa-solid fa-house"></i> Home
                     </a>
                 </li>
                 <li>
-                    <a href="/all-creatures" aria-current={$page.url.pathname.startsWith("/all-creatures") ? "page" : undefined}>
+                    <a href="/all-creatures" onclick={() => mobileNavOpen = false}  aria-current={$page.url.pathname.startsWith("/all-creatures") ? "page" : undefined}>
                         <i class="fa-duotone fa-regular fa-globe"></i> All Creatures
                     </a>
                 </li>
                 <li>
-                    <a href="/fish" aria-current={$page.url.pathname.startsWith("/fish") ? "page" : undefined}>
+                    <a href="/fish" onclick={() => mobileNavOpen = false}  aria-current={$page.url.pathname.startsWith("/fish") ? "page" : undefined}>
                         <i class="fa-sharp-duotone fa-solid fa-fish"></i> Fish
                     </a>
                 </li>
                 <li>
-                    <a href="/bugs" aria-current={$page.url.pathname.startsWith("/bugs") ? "page" : undefined}>
+                    <a href="/bugs" onclick={() => mobileNavOpen = false}  aria-current={$page.url.pathname.startsWith("/bugs") ? "page" : undefined}>
                         <i class="fa-sharp-duotone fa-solid fa-bug"></i> Bugs
                     </a>
                 </li>
                 <li>
-                    <a href="/sea-creatures" aria-current={$page.url.pathname.startsWith("/sea-creatures") ? "page" : undefined}>
+                    <a href="/sea-creatures" onclick={() => mobileNavOpen = false}  aria-current={$page.url.pathname.startsWith("/sea-creatures") ? "page" : undefined}>
                         <i class="fa-sharp-duotone fa-solid fa-wave"></i> Sea Creatures
                     </a>
                 </li>
             </ul>
+            <button type="button" class="toggle-nav" aria-label="Toggle Navigation" onclick={() => mobileNavOpen = !mobileNavOpen}>
+                <i class="fa-solid fa-bars"></i>
+            </button>
             <button id="settings-toggle" aria-label="Open Settings" onclick={() => settingsVisible = true}>
                 <i class="fa-duotone fa-solid fa-gear"></i>
             </button>
@@ -125,13 +129,18 @@
 
     header {
         --header-height: 3.5rem;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: var(--header-height);
         display: flex;
         align-items: center;
         justify-content: space-between;
         background-color: var(--primary-theme-color);
         box-shadow: 2px 2px 12px rgba(0,0,0,0.2);
-        border-bottom: .25em solid var(--secondary-theme-color);
-        height: var(--header-height);
+        border-bottom: .25rem solid var(--secondary-theme-color);
+        z-index: 15;
     }
 
     header a {
@@ -161,7 +170,9 @@
         list-style-type: none;
         align-items: center;
         margin: 0;
+        padding: 0;
         height: 100%;
+        z-index: 10;
     }
 
     nav li {
@@ -182,7 +193,7 @@
         display: block;
         position: absolute;
         bottom: 0;
-        left: 0;
+        right: 0;
         width: 100%;
         height: .2em;
         background-color: var(--secondary-theme-color);
@@ -210,7 +221,7 @@
         margin-right: .25em;
     }
 
-    #settings-toggle {
+    nav button {
         width: var(--header-height);
         height: var(--header-height);
         font-size: 1.4em;
@@ -222,19 +233,23 @@
         cursor: pointer;
     }
 
-    #settings-toggle i {
+    nav button i {
         transition: 250ms font-size;
     }
 
-    #settings-toggle:hover,
-    #settings-toggle:focus-visible {
+    nav button:hover,
+    nav button:focus-visible {
         color: white;
         text-shadow: 6px 6px 12px rgba(0,0,0,0.3);
     }
 
-    #settings-toggle:hover i,
-    #settings-toggle:focus-visible i {
+    nav button:hover i,
+    nav button:focus-visible i {
         font-size: 1.2em;
+    }
+
+    .toggle-nav {
+        display: none;
     }
 
     .wrapper {
@@ -252,5 +267,51 @@
         margin: .8em 0;
         text-align: center;
         opacity: .6;
+    }
+
+    @media only screen and (max-width: 1000px) {
+        .toggle-nav {
+            display: block;
+        }
+
+        nav ul {
+            display: block;
+            position: fixed;
+            top: calc(var(--header-height) + .25rem);
+            right: -15rem;
+            background-color: var(--secondary-theme-color);
+            width: 100%;
+            max-width: 15rem;
+            opacity: 0;
+            transition: 250ms;
+            box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+        }
+
+        nav ul.open {
+            right: 0;
+            opacity: 1;
+        }
+
+        nav li {
+            width: 100%;
+            height: var(--header-height);
+        }
+
+        nav a {
+            padding: 0 1em;
+        }
+
+        nav a:hover,
+        nav a:focus-visible {
+            background-color: var(--primary-theme-color);
+        }
+
+        nav a::after {
+            background-color: var(--primary-theme-color);
+            top: 0;
+            width: .2em;
+            height: 100%;
+            border-radius: .2em 0 0 .2em;
+        }
     }
 </style>

@@ -85,6 +85,7 @@
         height: 100%;
         overflow-y: auto;
         background-color: rgba(0,0,0,0.3);
+        z-index: 100;
     }
 
     #settings-container section {
@@ -94,7 +95,6 @@
         max-width: 30em;
         padding: .8em;
         margin: 3em auto;
-        z-index: 10;
         border-radius: .3em;
         overflow: hidden;
         box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
