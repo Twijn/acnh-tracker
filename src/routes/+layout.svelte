@@ -41,7 +41,22 @@
     })
 
     const randomCreature: Creature = data.randomCreature;
+
+    const closeMobileNav = (e) => {
+        let target = e.target;
+
+        while (target) {
+            if (target.classList && target.classList.contains("toggle-nav")) {
+                return;
+            }
+            target = target.parentElement;
+        }
+
+        mobileNavOpen = false;
+    }
 </script>
+
+<svelte:document onclick={closeMobileNav} />
 
 <div class="app">
     <header>
