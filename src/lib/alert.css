@@ -1,0 +1,19 @@
+.alert {
+    padding: .4em .6em;
+    margin: .8em .6em;
+}
+
+.alert-center {
+    display: block;
+    max-width: 30em;
+    margin: .8em auto;
+    text-align: center;
+}
+
+.alert-danger {
+    background-color: #e37474;
+    color: #250606;
+    border: 1px solid #ba5151;
+    border-radius: .3em;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+}

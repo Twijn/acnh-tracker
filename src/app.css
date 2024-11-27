@@ -1,0 +1,132 @@
+:root {
+    --primary-text-color: #191917;
+    --secondary-text-color: #2b2b26;
+    --light-text-color: #f1f1f1;
+
+    --primary-background-color: #efefef;
+    --secondary-background-color: #e4e4e4;
+
+    --primary-theme-color: #2176FF;
+    --secondary-theme-color: #33A1FD;
+}
+
+html, body {
+    height: 100vh;
+}
+
+body {
+    font-family: "Parkinsans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    margin: 0;
+
+    background-color: var(--primary-background-color);
+    color: var(--primary-text-color);
+}
+
+main h1 {
+    font-size: 1.75em;
+    font-weight: 300;
+    line-height: 1em;
+    margin: .4em 0;
+    padding-bottom: .6em;
+    border-bottom: .1em solid var(--primary-theme-color);
+}
+
+main h1 small {
+    display: block;
+    margin-bottom: .15em;
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    opacity: .8;
+}
+
+main h2 {
+    font-size: 1.6em;
+    font-weight: 300;
+    margin: .4em 0;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+a {
+    color: var(--secondary-text-color);
+}
+
+.pill-box {
+    display: grid;
+    gap: .4em;
+    margin: .2em 0;
+}
+
+.pill-box-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.pill-box-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.pill {
+    position: relative;
+    background-color: var(--secondary-background-color);
+    font-size: .875em;
+    text-align: center;
+    margin: .4em 0;
+    padding: .4em .6em;
+    border-radius: .5em;
+    transition: 250ms background-color;
+}
+
+.pill:has(i, img) {
+    padding: .4em .6em .4em 2.4em;
+}
+
+.pill strong {
+    display: block;
+    font-size: 1.1em;
+}
+
+.pill i,
+.pill picture {
+    position: absolute !important;
+    top: 50%;
+    left: .6em;
+    transform: translateY(-50%);
+}
+
+.pill picture,
+.pill img {
+    width: .95em;
+    height: .95em;
+}
+
+.pill-justified {
+    text-align: justify;
+}
+
+.pill i {
+    opacity: .9;
+}
+
+.pill-primary-theme {
+    background-color: var(--primary-theme-color);
+    color: var(--light-text-color);
+}
+
+.pill-secondary-theme {
+    background-color: var(--secondary-theme-color);
+    color: var(--light-text-color);
+}
+
+.pill-red {
+    background-color: #da4b4b;
+    color: white;
+}
+
+.pill-yellow {
+    background-color: #eded8f;
+}
