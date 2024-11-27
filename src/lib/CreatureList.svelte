@@ -315,7 +315,7 @@
 
 <style>
     .filter-sort {
-        display: grid;
+        display: block;
         grid-template-columns: repeat(12, 1fr);
         gap: .8em;
     }
@@ -358,6 +358,10 @@
     @media only screen and (min-width: 1500px) {
         .container {
             grid-template-columns: repeat(5, 1fr);
+        }
+
+        .filter-sort {
+            display: grid;
         }
     }
 </style>
