@@ -6,7 +6,7 @@ const getRandomCreature = () => {
     return creatures[Math.floor(Math.random() * creatures.length)];
 }
 
-const sortAsc = (a: Creature, b: Creature) => a.name < b.name ? -1 : 1;
+const sortAsc = (a: Creature, b: Creature) => a.name.localeCompare(b.name);
 
 const randomCreature: Creature = getRandomCreature();
 const sortedCreatures: Creature[] = creatures.sort(sortAsc);
