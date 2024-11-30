@@ -6,16 +6,39 @@
 
     import "$lib/form.css";
     import "$lib/alert.css";
+    import {getActivity} from "$lib/activity";
 
     const { creatures, showType }: {creatures: Creature[], showType: boolean} = $props();
 
     let lang: keyof Translations = $state("uSen");
-    // let hemisphere: keyof Hemispheres = $state("north");
+    let hemisphere: keyof Hemispheres = $state("north");
+
+    const creatureActivities = $derived.by((): Map<string, {active: boolean, inSeason: boolean, message: string}> => {
+        const map = new Map<string, {active: boolean, inSeason: boolean, message: string}>();
+
+        creatures.forEach(creature => {
+            map.set(creature.uniqueEntryId, getActivity(creature, hemisphere));
+        });
+
+        return map;
+    });
+
+    const filterActivity = (creature: Creature, activity: "all"|"active"|"inSeason"|"outOfSeason") => {
+        if (activity === "all") return true;
+
+        const creatureActivity = creatureActivities.get(creature.uniqueEntryId);
+        if (!creatureActivity) {
+            console.error("Missing activity for " + creature.name);
+            return false;
+        }
+
+        return activity === "outOfSeason" ? !creatureActivity.inSeason : creatureActivity[activity];
+    };
 
     settings.subscribe(currentSettings => {
         try {
             lang = currentSettings.lang as keyof Translations;
-            // hemisphere = currentSettings.hemisphere as keyof Hemispheres;
+            hemisphere = currentSettings.hemisphere as keyof Hemispheres;
         } catch(err) {
             console.error("Invalid lang/hemisphere: ", err);
         }
@@ -161,6 +184,7 @@
     let whereHows: string[] = getWhereHows();
     let sizes: string[] = getSizes();
 
+    let season: "all"|"active"|"inSeason"|"outOfSeason" = $state("all");
     let filterName: string = $state("");
     let sellPrice: string = $state("All Prices");
     let whereHow: string = $state("All Locations");
@@ -181,6 +205,8 @@
 
         result = result.filter(x => filterBySize(x, size));
 
+        result = result.filter(x => filterActivity(x, season));
+
         return result;
     });
 
@@ -199,6 +225,8 @@
         }
 
         result = result.filter(x => filterBySize(x, size));
+
+        result = result.filter(x => filterActivity(x, season));
 
         return result;
     });
@@ -221,10 +249,12 @@
             result = result.filter(x => x.whereHow === whereHow);
         }
 
+        result = result.filter(x => filterActivity(x, season));
+
         return result;
     });
 
-    let creaturesFiltered = $derived.by(() => {
+    let creaturesFilteredForActivity = $derived.by(() => {
         let result = creatures;
 
         if (filterName.length > 0) {
@@ -255,12 +285,62 @@
         return result;
     });
 
+    let creaturesFiltered = $derived.by(() => {
+        let result = creatures;
+
+        if (filterName.length > 0) {
+            result = result.filter(x => String(x.translations[lang]).toLowerCase().includes(filterName.toLowerCase()));
+        }
+
+        if (sellPrice !== "All Prices") {
+            const price = sellPrices.find(x => x.name === sellPrice);
+            if (price) {
+                result = result.filter(x => x.sell >= price.min && x.sell <= price.max);
+            }
+        }
+
+        if (whereHow !== "All Locations") {
+            result = result.filter(x => x.whereHow === whereHow);
+        }
+
+        result = result.filter(x => filterBySize(x, size));
+
+        result = result.filter(x => filterActivity(x, season));
+
+        const sortOption = sortOptions.find(x => x.name === sortBy);
+        if (sortOption) {
+            result.sort(sortOption.sort);
+            result = [...result]; // For some reason Svelte won't update the array unless it is reassigned while sorted.
+        } else {
+            console.error("No sort option!");
+        }
+
+        return result;
+    });
+
+    const averageSellPrice = $derived.by(() => {
+        let priceSum = 0;
+        creaturesFiltered.forEach(x => priceSum += x.sell);
+        return creaturesFiltered.length > 0 ? priceSum / creaturesFiltered.length : 0;
+    });
+
+    const active = $derived(creaturesFilteredForActivity.filter(x => filterActivity(x, "active")).length);
+    const inSeason = $derived(creaturesFilteredForActivity.filter(x => filterActivity(x, "inSeason")).length);
 </script>
 
 <div class="filter-sort">
-    <label class={sizes.length > 2 && whereHows.length > 1 ? "span-4" : "span-6"}>
+    <label class={sizes.length > 2 && whereHows.length > 1 ? "span-3" : "span-5"}>
         Search by Name
         <input type="search" name="search" placeholder="Filter by name..." bind:value={filterName} />
+    </label>
+    <label class="span-2">
+        Include only...
+        <select name="season" bind:value={season}>
+            <option value="all">All ({creaturesFilteredForActivity.length})</option>
+            <option value="active" disabled={active === 0}>Active Now ({active})</option>
+            <option value="inSeason" disabled={inSeason === 0}>In Season (Active this Month) ({inSeason})</option>
+            <option value="outOfSeason" disabled={creaturesFilteredForActivity.length - inSeason === 0}>Out of Season ({creaturesFilteredForActivity.length - inSeason})</option>
+        </select>
     </label>
     <label class="span-2">
         Search by Sell Price
@@ -293,7 +373,7 @@
         </select>
     </label>
     {/if}
-    <label class="span-2">
+    <label class="span-1">
         Sort By
         <select name="sortBy" bind:value={sortBy}>
             {#each sortOptions as sortOption}
@@ -302,6 +382,10 @@
         </select>
     </label>
 </div>
+
+<p class="creature-count">
+    Showing {creaturesFiltered.length}/{creatures.length} creatures. Average sell price: {Math.floor(averageSellPrice + .5).toLocaleString()} Bells
+</p>
 
 {#if creaturesFiltered.length === 0}
     <div class="alert alert-center alert-danger" in:scale out:slide>
@@ -315,6 +399,10 @@
     {/each}
 </div>
 
+<p class="creature-count">
+    Showing {creaturesFiltered.length}/{creatures.length} creatures. Average sell price: {Math.floor(averageSellPrice + .5).toLocaleString()} Bells
+</p>
+
 <style>
     .filter-sort {
         display: block;
@@ -322,16 +410,27 @@
         gap: .8em;
     }
 
+    .span-1 {
+        grid-column: span 1;
+    }
+
     .span-2 {
         grid-column: span 2;
     }
 
-    .span-4 {
-        grid-column: span 4;
+    .span-3 {
+        grid-column: span 3;
     }
 
-    .span-6 {
-        grid-column: span 6;
+    .span-5 {
+        grid-column: span 5;
+    }
+
+    .creature-count {
+        font-size: .8em;
+        color: var(--secondary-text-color);
+        text-align: center;
+        margin: .1em 0;
     }
 
     .container {
