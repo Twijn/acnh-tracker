@@ -137,6 +137,13 @@
                             {creature.vision}
                         </div>
                     {/if}
+                    {#if creature.spawnRates}
+                        <div class="pill">
+                            <i class="fa-duotone fa-solid fa-seedling"></i>
+                            <strong>Spawn Rates</strong>
+                            {creature.spawnRates}
+                        </div>
+                    {/if}
                     <div class="pill">
                         <i class="fa-duotone fa-solid fa-unlock"></i>
                         <strong>Unlocked After</strong>
