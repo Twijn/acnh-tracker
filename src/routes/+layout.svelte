@@ -7,6 +7,10 @@
     import '@fontsource/parkinsans/500.css';
     import '@fontsource/parkinsans/600.css';
 
+    import {injectAnalytics} from "@vercel/analytics/sveltekit";
+
+    injectAnalytics();
+
     import { page } from '$app/state';
     import type {Creature} from "animal-crossing/lib/types/Creature";
 
