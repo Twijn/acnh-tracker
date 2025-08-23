@@ -1,5 +1,4 @@
 <script lang="ts">
-    import CreatureCard from "$lib/CreatureCard.svelte";
     import CreatureList from "$lib/CreatureList.svelte";
 
     const { data } = $props();

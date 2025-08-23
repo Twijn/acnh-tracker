@@ -1,8 +1,13 @@
 <script lang="ts">
-    import "../app.css";
+    import '../app.css';
     import '$lib/form.css'
 
-    import { page } from '$app/stores';
+    import '@fontsource/parkinsans/300.css';
+    import '@fontsource/parkinsans/400.css';
+    import '@fontsource/parkinsans/500.css';
+    import '@fontsource/parkinsans/600.css';
+
+    import { page } from '$app/state';
     import type {Creature} from "animal-crossing/lib/types/Creature";
 
     import Settings from "$lib/Settings.svelte";
@@ -19,11 +24,11 @@
         settingsVisible = false;
     }
 
-    function handleOutsideClick(event) {
+    function handleOutsideClick(event: MouseEvent) {
         const settingsModal = document.getElementById("settings-modal");
         const settingsToggle = document.getElementById("settings-toggle");
-        if (settingsModal && !settingsModal.contains(event.target) &&
-                settingsToggle && !settingsToggle.contains(event.target)) {
+        if (settingsModal && !settingsModal.contains(event.target as Node) &&
+            settingsToggle && !settingsToggle.contains(event.target as Node)) {
             settingsVisible = false;
         }
     }
@@ -69,27 +74,27 @@
         <nav id="main-nav">
             <ul class={mobileNavOpen ? "open" : undefined}>
                 <li>
-                    <a href="/" onclick={() => mobileNavOpen = false} aria-current={$page.url.pathname === "/" ? "page" : undefined}>
+                    <a href="/" onclick={() => mobileNavOpen = false} aria-current={page.url.pathname === "/" ? "page" : undefined}>
                         <i class="fa-duotone fa-solid fa-house"></i> Home
                     </a>
                 </li>
                 <li>
-                    <a href="/all-creatures" onclick={() => mobileNavOpen = false}  aria-current={$page.url.pathname.startsWith("/all-creatures") ? "page" : undefined}>
+                    <a href="/all-creatures" onclick={() => mobileNavOpen = false}  aria-current={page.url.pathname.startsWith("/all-creatures") ? "page" : undefined}>
                         <i class="fa-duotone fa-regular fa-globe"></i> All Creatures
                     </a>
                 </li>
                 <li>
-                    <a href="/fish" onclick={() => mobileNavOpen = false}  aria-current={$page.url.pathname.startsWith("/fish") ? "page" : undefined}>
+                    <a href="/fish" onclick={() => mobileNavOpen = false}  aria-current={page.url.pathname.startsWith("/fish") ? "page" : undefined}>
                         <i class="fa-sharp-duotone fa-solid fa-fish"></i> Fish
                     </a>
                 </li>
                 <li>
-                    <a href="/bugs" onclick={() => mobileNavOpen = false}  aria-current={$page.url.pathname.startsWith("/bugs") ? "page" : undefined}>
+                    <a href="/bugs" onclick={() => mobileNavOpen = false}  aria-current={page.url.pathname.startsWith("/bugs") ? "page" : undefined}>
                         <i class="fa-sharp-duotone fa-solid fa-bug"></i> Bugs
                     </a>
                 </li>
                 <li>
-                    <a href="/sea-creatures" onclick={() => mobileNavOpen = false}  aria-current={$page.url.pathname.startsWith("/sea-creatures") ? "page" : undefined}>
+                    <a href="/sea-creatures" onclick={() => mobileNavOpen = false}  aria-current={page.url.pathname.startsWith("/sea-creatures") ? "page" : undefined}>
                         <i class="fa-sharp-duotone fa-solid fa-wave"></i> Sea Creatures
                     </a>
                 </li>

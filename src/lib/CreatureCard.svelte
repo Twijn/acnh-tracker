@@ -20,10 +20,6 @@
         }
     });
 
-    const isActive = (x: Creature, hemisphere: keyof Hemispheres) =>
-        x.hemispheres[hemisphere].monthsArray.includes(new Date().getMonth() + 1) &&
-        x.hemispheres[hemisphere].timeArray.includes(new Date().getHours());
-
     const activity = $derived(getActivity(creature, hemisphere));
     const creatureName = $derived(creature.translations[lang]);
 </script>
