@@ -127,7 +127,7 @@
         </p>
         <p>
             <small>
-                Animal Crossing: New Horizons Tracker &bullet; Version 1.0.2
+                Animal Crossing: New Horizons Tracker &bullet; Version 1.1.0
                 <br/>
                 This site is not affiliated with Animal Crossing or Nintendo.
             </small>
