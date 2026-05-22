@@ -26,20 +26,20 @@
     const activity = $derived(getActivity(creature, hemisphere));
     const creatureName = $derived(creature.translations[lang]);
 
-    let difficultyGauge: string = $state("");
-    switch (creature.catchDifficulty) {
-        case CatchDifficulty.VeryEasy:
-            difficultyGauge = "-min";
-            break;
-        case CatchDifficulty.Easy:
-            difficultyGauge = "-low";
-            break;
-        case CatchDifficulty.Hard:
-            difficultyGauge = "-high";
-            break;
-        case CatchDifficulty.VeryHard:
-            difficultyGauge = "-max";
-    }
+    const difficultyGauge = $derived.by(() => {
+        switch (creature.catchDifficulty) {
+            case CatchDifficulty.VeryEasy:
+                return "-min";
+            case CatchDifficulty.Easy:
+                return "-low";
+            case CatchDifficulty.Hard:
+                return "-high";
+            case CatchDifficulty.VeryHard:
+                return "-max";
+            default:
+                return "";
+        }
+    });
 </script>
 <h1>
     <small>Animal Crossing: New Horizons</small>

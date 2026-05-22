@@ -2,7 +2,7 @@
     import CreatureList from "$lib/CreatureList.svelte";
 
     const { data } = $props();
-    const { creatures } = data;
+    const creatures = $derived(data.creatures);
 </script>
 
 <svelte:head>

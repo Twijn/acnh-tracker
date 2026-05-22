@@ -49,10 +49,10 @@
         }
     })
 
-    const randomCreature: Creature = data.randomCreature;
+    const randomCreature: Creature = $derived(data.randomCreature);
 
-    const closeMobileNav = (e) => {
-        let target = e.target;
+    const closeMobileNav = (event: MouseEvent) => {
+        let target = event.target as HTMLElement | null;
 
         while (target) {
             if (target.classList && target.classList.contains("toggle-nav")) {

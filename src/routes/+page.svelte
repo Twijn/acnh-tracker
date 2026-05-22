@@ -4,11 +4,11 @@
     import CreatureCard from "$lib/CreatureCard.svelte";
 
     const { data } = $props();
-    const { creatures } = data;
+    const creatures = $derived(data.creatures);
 
-    const allFish = creatures.filter(x => x.sourceSheet === "Fish");
-    const allBugs = creatures.filter(x => x.sourceSheet === "Insects");
-    const allSeaCreatures = creatures.filter(x => x.sourceSheet === "Sea Creatures");
+    const allFish = $derived(creatures.filter(x => x.sourceSheet === "Fish"));
+    const allBugs = $derived(creatures.filter(x => x.sourceSheet === "Insects"));
+    const allSeaCreatures = $derived(creatures.filter(x => x.sourceSheet === "Sea Creatures"));
 
     let currentFish: Creature[] = $state([]);
     let currentBugs: Creature[] = $state([]);

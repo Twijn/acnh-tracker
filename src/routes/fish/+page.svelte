@@ -2,9 +2,9 @@
     import CreatureList from "$lib/CreatureList.svelte";
 
     const { data } = $props();
-    const { creatures } = data;
+    const creatures = $derived(data.creatures);
 
-    const allFish = creatures.filter(x => x.sourceSheet === "Fish");
+    const allFish = $derived(creatures.filter(x => x.sourceSheet === "Fish"));
 </script>
 
 <svelte:head>

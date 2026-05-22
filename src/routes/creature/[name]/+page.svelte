@@ -5,9 +5,9 @@
     import CreatureInfo from "$lib/CreatureInfo.svelte";
 
     const { data } = $props();
-    const { creatureList } = data;
+    const creatureList = $derived(data.creatureList);
 
-    const creature = creatureList[0];
+    const creature = $derived(creatureList[0]);
 
     let lang: keyof Translations = $state("uSen");
 

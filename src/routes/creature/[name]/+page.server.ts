@@ -1,4 +1,4 @@
-import type {PageServerLoad} from "../../../../.svelte-kit/types/src/routes/$types";
+import type {PageServerLoad} from "./$types";
 import {getURLFromName} from "$lib/utils";
 import {error} from "@sveltejs/kit";
 import {creatures} from "animal-crossing";
@@ -17,4 +17,4 @@ export const load: PageServerLoad = async ({ params }) => {
     return {
         creatureList,
     };
-}
+};

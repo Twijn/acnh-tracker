@@ -1,15 +1,16 @@
 <script lang="ts">
     import { fade, scale } from 'svelte/transition';
     import type {Writable} from "svelte/store";
-    import {onMount, tick} from "svelte";
+    import {onMount} from "svelte";
     import {type ISettings, Languages} from "$lib/types";
 
     const { settingsVisible, hideSettings, settings }:
         { settingsVisible: boolean, hideSettings(): void, settings: Writable<ISettings> } = $props();
 
-    async function autofocus(el: HTMLElement) {
-        await tick();
-        el.focus();
+    function autofocus(el: HTMLElement) {
+        queueMicrotask(() => {
+            el.focus();
+        });
     }
 
     let formSettings: ISettings = $state({
