@@ -1,5 +1,6 @@
 <script lang="ts">
     import {settings} from "$lib/shared";
+    import {page} from "$app/state";
     import type {Creature} from "animal-crossing/lib/types/Creature";
     import CreatureCard from "$lib/creatures/CreatureCard.svelte";
 
@@ -64,7 +65,13 @@
 
 <svelte:head>
     <title>Animal Crossing: New Horizons Tracker</title>
-    <meta name="description" content="Animal Crossing: New Horizons Bug, Fish & Sea Creature Tracker. See what's active, track what you've caught, and analyze your earnings & storage!" />
+    <meta name="description" content="Animal Crossing: New Horizons bug, fish, and sea creature tracker. See what is active now, track catches, and check upcoming monthly changes." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={page.url.toString()} />
+    <meta property="og:title" content="Animal Crossing: New Horizons Tracker" />
+    <meta property="og:description" content="Track fish, bugs, and sea creatures in Animal Crossing: New Horizons with active-now and monthly change insights." />
+    <meta name="twitter:title" content="Animal Crossing: New Horizons Tracker" />
+    <meta name="twitter:description" content="Track fish, bugs, and sea creatures in AC:NH with active-now and monthly change insights." />
 </svelte:head>
 
 <h1>

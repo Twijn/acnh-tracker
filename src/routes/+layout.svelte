@@ -60,6 +60,10 @@
     })
 
     const randomCreature: Creature = $derived(data.randomCreature);
+    const siteName = "Animal Crossing: New Horizons Tracker";
+    const siteDescription = "Track fish, bugs, and sea creatures in Animal Crossing: New Horizons. See what is active now, what is leaving this month, and what is coming next.";
+    const canonicalUrl = $derived(page.url.toString());
+    const ogImageUrl = $derived(new URL("/assets/images/bells/bag.png", page.url.origin).toString());
 
     const closeMobileNav = (event: MouseEvent) => {
         let target = event.target as HTMLElement | null;
@@ -74,6 +78,20 @@
         mobileNavOpen = false;
     }
 </script>
+
+<svelte:head>
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="theme-color" content="#2176FF" />
+    <meta property="og:site_name" content={siteName} />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:description" content={siteDescription} />
+    <meta property="og:image" content={ogImageUrl} />
+    <meta property="og:image:alt" content="Animal Crossing: New Horizons Tracker preview image" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImageUrl} />
+    <link rel="canonical" href={canonicalUrl} />
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"Animal Crossing: New Horizons Tracker","description":"Track fish, bugs, and sea creatures in Animal Crossing: New Horizons.","inLanguage":"en-US"}</script>
+</svelte:head>
 
 <svelte:document onclick={closeMobileNav} />
 

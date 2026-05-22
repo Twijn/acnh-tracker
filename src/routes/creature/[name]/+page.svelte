@@ -1,4 +1,5 @@
 <script lang="ts">
+    import {page} from "$app/state";
     import {toTitleCase} from "$lib/utils.js";
     import type {Translations} from "animal-crossing/lib/types/Creature";
     import {settings} from "$lib/shared";
@@ -8,8 +9,10 @@
     const creatureList = $derived(data.creatureList);
 
     const creature = $derived(creatureList[0]);
-
     let lang: keyof Translations = $state("uSen");
+
+    const creatureTitle = $derived(toTitleCase(creature.translations[lang].toString()));
+    const creatureDescription = $derived(`View information for ${creatureTitle} in Animal Crossing: New Horizons, including activity times, seasonality, and sell prices.`);
 
     settings.subscribe(currentSettings => {
         try {
@@ -21,8 +24,17 @@
 </script>
 
 <svelte:head>
-    <title>{toTitleCase(creature.translations[lang].toString())} | Creatures | Animal Crossing: New Horizons Tracker</title>
-    <meta name="description" content="View information for {toTitleCase(creature.translations[lang].toString())} creatures in Animal Crossing: New Horizons!" />
+    <title>{creatureTitle} | Creatures | Animal Crossing: New Horizons Tracker</title>
+    <meta name="description" content={creatureDescription} />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content={page.url.toString()} />
+    <meta property="og:title" content={`${creatureTitle} | AC:NH Tracker`} />
+    <meta property="og:description" content={creatureDescription} />
+    <meta property="og:image" content={creature.iconImage} />
+    <meta property="og:image:alt" content={`${creatureTitle} from Animal Crossing: New Horizons`} />
+    <meta name="twitter:title" content={`${creatureTitle} | AC:NH Tracker`} />
+    <meta name="twitter:description" content={creatureDescription} />
+    <meta name="twitter:image" content={creature.iconImage} />
 </svelte:head>
 
 {#if creatureList.length > 1}
