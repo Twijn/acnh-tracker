@@ -1,0 +1,262 @@
+:root {
+    --primary-text-color: #191917;
+    --secondary-text-color: #2b2b26;
+    --light-text-color: #f1f1f1;
+
+    --primary-background-color: #efefef;
+    --secondary-background-color: #e4e4e4;
+
+    --primary-theme-color: #2176FF;
+    --secondary-theme-color: #33A1FD;
+
+    --secondary-theme-color-rgb: 51, 161, 253;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100vh;
+}
+
+body {
+    font-family: "Cabin Variable", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    margin: 0;
+
+    background-color: var(--primary-background-color);
+    color: var(--primary-text-color);
+}
+
+h1, h2, h3, h4 {
+    font-family: "Parkinsans", sans-serif;
+}
+
+[title] {
+	position: relative;
+}
+
+[title]:hover::after {
+	font-family: var(--font-family), sans-serif;
+	content: attr(title);
+	position: absolute;
+	left: 50%;
+	bottom: calc(100% + 8px);
+	translate: -50% 0;
+	padding: 0.5rem 0.75rem;
+	background: linear-gradient(135deg, rgba(20, 20, 20, 0.98) 0%, rgba(10, 10, 10, 0.98) 100%);
+	color: var(--primary-background-color);
+	border-radius: 0.5rem;
+	font-size: 0.9rem;
+	font-weight: 500;
+	text-transform: none;
+	z-index: 1000;
+	box-shadow:
+		0 4px 12px rgba(0, 0, 0, 0.5),
+		0 0 0 1px rgba(255, 255, 255, 0.1);
+	white-space: nowrap;
+	pointer-events: none;
+	animation: tooltipFadeIn 0.15s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+	backdrop-filter: blur(8px);
+}
+
+.title-full-right[title]:hover::after {
+	left: unset;
+	top: 50%;
+	right: 0;
+	translate: 0 -50%;
+}
+
+.title-left[title]:hover::after {
+	left: 0;
+	translate: 0 0;
+}
+
+.title-right[title]:hover::after {
+	left: unset;
+	right: 0;
+	translate: 0 0;
+}
+
+.title-bottom[title]:hover::after {
+	top: calc(100% + 8px);
+	bottom: unset;
+	translate: -50% 0;
+}
+
+[title]:hover::before {
+	content: '';
+	position: absolute;
+	left: 50%;
+	bottom: calc(100% + 2px);
+	translate: -50% 0;
+	width: 0;
+	height: 0;
+	border-left: 6px solid transparent;
+	border-right: 6px solid transparent;
+	border-top: 6px solid rgba(20, 20, 20, 0.98);
+	z-index: 1000;
+	pointer-events: none;
+	animation: tooltipFadeIn 0.15s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.title-left[title]:hover::before {
+	left: 12px;
+	translate: 0 0;
+}
+
+.title-right[title]:hover::before {
+	left: unset;
+	right: 12px;
+	translate: 0 0;
+}
+
+.title-bottom[title]:hover::before {
+	top: unset;
+	bottom: -8px;
+	translate: -50% 0;
+	rotate: 180deg;
+}
+
+@keyframes tooltipFadeIn {
+	from {
+		opacity: 0;
+		scale: 0.95;
+	}
+	to {
+		opacity: 1;
+		scale: 1;
+	}
+}
+
+main h1 {
+    font-size: 1.75em;
+    font-weight: 300;
+    line-height: 1em;
+    margin: 4.75rem 0 .4em 0;
+    padding-bottom: .6em;
+    border-bottom: .1em solid var(--primary-theme-color);
+}
+
+main h1 small {
+    display: block;
+    margin-bottom: .15em;
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    opacity: .8;
+}
+
+main h2 {
+    font-size: 1.6em;
+    font-weight: 300;
+    margin: .4em 0;
+}
+
+.capitalize {
+    text-transform: capitalize;
+}
+
+a {
+    color: var(--secondary-text-color);
+}
+
+.pill-box {
+    display: grid;
+    gap: .4em;
+    margin: .2em 0;
+}
+
+.pill-box-2 {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.pill-box-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.pill {
+    position: relative;
+    background-color: var(--secondary-background-color);
+    font-size: 1em;
+    text-align: center;
+    margin: .4em 0;
+    padding: .4em .6em;
+    border-radius: .5em;
+    transition: 250ms background-color;
+}
+
+.pill:has(i, img) {
+    padding: .4em .6em .4em 2.4em;
+}
+
+.pill strong {
+    display: block;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    margin-bottom: 0.15em;
+    opacity: .65;
+}
+
+.pill i,
+.pill picture {
+    position: absolute !important;
+    top: 50%;
+    left: .6em;
+    transform: translateY(-50%);
+}
+
+.pill picture,
+.pill img {
+    width: .95em;
+    height: .95em;
+}
+
+.pill-justified {
+    text-align: justify;
+}
+
+.pill i {
+    opacity: .9;
+}
+
+.pill-primary-theme {
+    background-color: var(--primary-theme-color);
+    color: var(--light-text-color);
+}
+
+.pill-secondary-theme {
+    background-color: var(--secondary-theme-color);
+    color: var(--light-text-color);
+}
+
+.pill-red {
+    background-color: #da4b4b;
+    color: white;
+}
+
+.pill-yellow {
+    background-color: #eded8f;
+}
+
+.alert {
+    padding: .4em .6em;
+    margin: .8em .6em;
+}
+
+.alert-center {
+    display: block;
+    max-width: 30em;
+    margin: .8em auto;
+    text-align: center;
+}
+
+.alert-danger {
+    background-color: #e37474;
+    color: #250606;
+    border: 1px solid #ba5151;
+    border-radius: .3em;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.2);
+}

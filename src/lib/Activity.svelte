@@ -1,6 +1,8 @@
 <script>
     import {hours, months} from "$lib/constants";
 
+    const TITLE_PAD = 2;
+
     const {hemisphere} = $props();
 </script>
 
@@ -9,7 +11,9 @@
 </div>
 <div class="grid hour-grid">
     {#each hours as hour, index}
-        <div class="slot {hemisphere.timeArray.includes(index) ? 'active' : ''} {new Date().getHours() === index ? 'now' : ''}" title={hour}></div>
+        {@const isActive = hemisphere.timeArray.includes(index)}
+        {@const isNow = new Date().getHours() === index}
+        <div class="slot" class:title-left={index < TITLE_PAD} class:title-right={index >= 24 - TITLE_PAD} class:active={isActive} class:now={isNow} title={hour}></div>
     {/each}
     <div class="slot-label">12 AM</div>
     <div class="slot-label slot-label-center">12 PM</div>
@@ -20,7 +24,9 @@
 </div>
 <div class="grid month-grid">
     {#each months as month, index}
-        <div class="slot {hemisphere.monthsArray.includes(index + 1) ? 'active' : ''} {new Date().getMonth() === index ? 'now' : ''}" title={month}></div>
+        {@const isActive = hemisphere.monthsArray.includes(index + 1)}
+        {@const isNow = new Date().getMonth() === index}
+        <div class="slot" class:title-left={index < TITLE_PAD} class:title-right={index >= 12 - TITLE_PAD} class:active={isActive} class:now={isNow} title={month}></div>
     {/each}
     <div class="slot-label">January</div>
     <div class="slot-label slot-label-right">December</div>
@@ -33,7 +39,6 @@
         grid-template-columns: repeat(24, 1fr);
         gap: .15em;
         border-radius: .15em;
-        overflow: hidden;
     }
 
     .hour-grid {
@@ -46,10 +51,14 @@
 
     .slot {
         position: relative;
-        background-color: var(--secondary-theme-color);
+        background-color: rgba(var(--secondary-theme-color-rgb), 0.3);
         height: 1.3em;
-        opacity: .3;
         border-radius: .05em;
+        transition: 200ms;
+    }
+
+    .slot:hover {
+        transform: scale(1.1);
     }
 
     .slot.now {
@@ -57,15 +66,7 @@
     }
 
     .slot.active {
-        opacity: .9;
-    }
-
-    .slot.now:not(.active) {
-        opacity: .45;
-    }
-
-    .slot.now.active {
-        opacity: 1;
+        background-color: var(--secondary-theme-color);
     }
 
     .slot:last-child {
@@ -73,8 +74,9 @@
     }
 
     .slot-label {
-        font-size: .9em;
         grid-column: span 8;
+        opacity: .7;
+        font-size: .9em;
     }
 
     .month-grid .slot-label {
@@ -91,6 +93,5 @@
 
     .grid-human {
         text-align: center;
-        font-size: .9em;
     }
 </style>

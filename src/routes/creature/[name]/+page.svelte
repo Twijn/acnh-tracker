@@ -2,7 +2,7 @@
     import {toTitleCase} from "$lib/utils.js";
     import type {Translations} from "animal-crossing/lib/types/Creature";
     import {settings} from "$lib/shared";
-    import CreatureInfo from "$lib/CreatureInfo.svelte";
+    import CreatureInfo from "$lib/creatures/CreatureInfo.svelte";
 
     const { data } = $props();
     const creatureList = $derived(data.creatureList);

@@ -1,7 +1,7 @@
 <script lang="ts">
     import {settings} from "$lib/shared";
     import type {Creature} from "animal-crossing/lib/types/Creature";
-    import CreatureCard from "$lib/CreatureCard.svelte";
+    import CreatureCard from "$lib/creatures/CreatureCard.svelte";
 
     const { data } = $props();
     const creatures = $derived(data.creatures);

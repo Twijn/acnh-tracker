@@ -1,11 +1,19 @@
 <script lang="ts">
-    import '../app.css';
-    import '$lib/form.css'
+    import '$lib/css/app.css';
+    import '$lib/css/form.css';
+    import "$lib/css/alert.css";
 
     import '@fontsource/parkinsans/300.css';
     import '@fontsource/parkinsans/400.css';
     import '@fontsource/parkinsans/500.css';
     import '@fontsource/parkinsans/600.css';
+
+    import '@fontsource-variable/cabin/wght.css';
+
+	import { config } from '@fortawesome/fontawesome-svg-core';
+    config.autoAddCss = false;
+
+    import '@fortawesome/fontawesome-svg-core/styles.css';
 
     import {injectAnalytics} from "@vercel/analytics/sveltekit";
 
@@ -18,6 +26,8 @@
 
     import { settings } from "$lib/shared";
     import {onDestroy, onMount} from "svelte";
+    import { faBars, faBug, faFish, faGear, faGlobe, faHouse, faMugSaucer, faWater } from '@fortawesome/free-solid-svg-icons';
+    import { FontAwesomeIcon } from '@fortawesome/svelte-fontawesome';
 
     const { children, data } = $props();
 
@@ -79,35 +89,35 @@
             <ul class={mobileNavOpen ? "open" : undefined}>
                 <li>
                     <a href="/" onclick={() => mobileNavOpen = false} aria-current={page.url.pathname === "/" ? "page" : undefined}>
-                        <i class="fa-duotone fa-solid fa-house"></i> Home
+                        <FontAwesomeIcon icon={faHouse} /> Home
                     </a>
                 </li>
                 <li>
                     <a href="/all-creatures" onclick={() => mobileNavOpen = false}  aria-current={page.url.pathname.startsWith("/all-creatures") ? "page" : undefined}>
-                        <i class="fa-duotone fa-regular fa-globe"></i> All Creatures
+                        <FontAwesomeIcon icon={faGlobe} /> All Creatures
                     </a>
                 </li>
                 <li>
                     <a href="/fish" onclick={() => mobileNavOpen = false}  aria-current={page.url.pathname.startsWith("/fish") ? "page" : undefined}>
-                        <i class="fa-sharp-duotone fa-solid fa-fish"></i> Fish
+                        <FontAwesomeIcon icon={faFish} /> Fish
                     </a>
                 </li>
                 <li>
                     <a href="/bugs" onclick={() => mobileNavOpen = false}  aria-current={page.url.pathname.startsWith("/bugs") ? "page" : undefined}>
-                        <i class="fa-sharp-duotone fa-solid fa-bug"></i> Bugs
+                        <FontAwesomeIcon icon={faBug} /> Bugs
                     </a>
                 </li>
                 <li>
                     <a href="/sea-creatures" onclick={() => mobileNavOpen = false}  aria-current={page.url.pathname.startsWith("/sea-creatures") ? "page" : undefined}>
-                        <i class="fa-sharp-duotone fa-solid fa-wave"></i> Sea Creatures
+                        <FontAwesomeIcon icon={faWater} /> Sea Creatures
                     </a>
                 </li>
             </ul>
             <button type="button" class="toggle-nav" aria-label="Toggle Navigation" onclick={() => mobileNavOpen = !mobileNavOpen}>
-                <i class="fa-solid fa-bars"></i>
+                <FontAwesomeIcon icon={faBars} />
             </button>
             <button id="settings-toggle" aria-label="Open Settings" onclick={() => settingsVisible = true}>
-                <i class="fa-duotone fa-solid fa-gear"></i>
+                <FontAwesomeIcon icon={faGear} />
             </button>
         </nav>
     </header>
@@ -118,7 +128,7 @@
     </main>
     <footer>
         <p>
-            Made by <a href="https://twijn.dev" target="_blank">Tyler (Twijn)</a> &bullet; <a href="https://buymeacoffee.com/twijn" target="_blank"><i class="fa-duotone fa-solid fa-mug-saucer"></i> Buy me a Coffee</a>
+            Made by <a href="https://twijn.dev" target="_blank">Tyler (Twijn)</a> &bullet; <a href="https://buymeacoffee.com/twijn" target="_blank"><FontAwesomeIcon icon={faMugSaucer} /> Buy me a Coffee</a>
         </p>
         <p>
             Huge thank you to the <a href="https://github.com/Norviah/animal-crossing" target="_blank">Animal Crossing NPM Package by Norviah</a>,
@@ -204,6 +214,7 @@
     }
 
     nav a {
+        font-family: "Parkinsans", sans-serif;
         position: relative;
         display: flex;
         align-items: center;
@@ -240,7 +251,7 @@
         background-color: var(--secondary-theme-color);
     }
 
-    nav a i {
+    nav a :global(svg) {
         display: inline-block;
         margin-right: .25em;
     }
@@ -257,7 +268,7 @@
         cursor: pointer;
     }
 
-    nav button i {
+    nav button :global(svg) {
         transition: 250ms font-size;
     }
 
@@ -265,11 +276,6 @@
     nav button:focus-visible {
         color: white;
         text-shadow: 6px 6px 12px rgba(0,0,0,0.3);
-    }
-
-    nav button:hover i,
-    nav button:focus-visible i {
-        font-size: 1.2em;
     }
 
     .toggle-nav {

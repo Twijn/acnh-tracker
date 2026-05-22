@@ -4,6 +4,7 @@
     import {getURLFromName} from "$lib/utils.js";
     import Activity from "$lib/Activity.svelte";
     import {getActivity} from "$lib/activity";
+  import Button from "$lib/components/Button.svelte";
 
     const { creature, showType }:
         {creature: Creature, showType: boolean} = $props();
@@ -69,7 +70,9 @@
         </div>
     </div>
     <div class="card-footer">
-        <a href="/creature/{getURLFromName(creature.name)}">View more information!</a>
+        <Button variant="primary" href="/creature/{getURLFromName(creature.name)}" full>
+            View more information!
+        </Button>
     </div>
 </section>
 
@@ -79,7 +82,7 @@
         display: flex;
         flex-direction: column;
         background-color: var(--primary-background-color);
-        min-width: 16em;
+        min-width: 18em;
         margin: .6em;
         border-radius: .4em;
         overflow: hidden;
@@ -115,7 +118,7 @@
 
     h3 {
         margin: 0;
-        font-size: .95em;
+        font-size: 1em;
         font-weight: 500;
         text-transform: uppercase;
         text-align: center;
@@ -131,16 +134,5 @@
 
     .card-footer {
         padding: .4em;
-    }
-
-    .card-footer a {
-        display: block;
-        padding: .4em .6em;
-        background-color: var(--primary-theme-color);
-        color: var(--light-text-color);
-        text-align: center;
-        text-decoration: none;
-        font-weight: 500;
-        border-radius: .2em;
     }
 </style>

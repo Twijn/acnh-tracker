@@ -1,5 +1,5 @@
 <script lang="ts">
-    import CreatureList from "$lib/CreatureList.svelte";
+    import CreatureList from "$lib/creatures/CreatureList.svelte";
 
     const { data } = $props();
     const creatures = $derived(data.creatures);

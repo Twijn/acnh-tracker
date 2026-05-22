@@ -1,11 +1,9 @@
 <script lang="ts">
-    import CreatureCard from "$lib/CreatureCard.svelte";
+    import CreatureCard from "$lib/creatures/CreatureCard.svelte";
     import type {Creature, Hemispheres, Translations} from "animal-crossing/lib/types/Creature";
     import { scale, slide } from "svelte/transition";
     import {settings} from "$lib/shared";
 
-    import "$lib/form.css";
-    import "$lib/alert.css";
     import {getActivity} from "$lib/activity";
 
     const { creatures, showType }: {creatures: Creature[], showType: boolean} = $props();

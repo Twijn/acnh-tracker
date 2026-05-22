@@ -242,9 +242,10 @@
     }
 
     section h3 {
-        font-size: .9em;
+        font-size: 1em;
         font-weight: 500;
         text-align: center;
+        text-transform: uppercase;
         margin: .2em 0 .5em 0;
     }
 
